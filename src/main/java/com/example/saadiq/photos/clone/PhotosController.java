@@ -39,9 +39,10 @@ public class PhotosController {
         if (photo == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping("/photos/")
-    public void create(Photo photo) {
+    @PostMapping("/photos")
+    public Photo create(@RequestBody Photo photo) {     // RequestBody annotation tells spring to use the body of my request to create a Photo class instance
         photo.setId(UUID.randomUUID().toString());  // generating a random number
-        
+        db.put(photo.getId(), photo);
+        return photo;
     }
 }
